@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,8 +23,17 @@ public class UserController {
 
     @GetMapping("/users")
     private ResponseEntity<List<User>> findAllUsers(){
-        List<User> allUsers = userService.findAllUsers();
-        return new ResponseEntity<>(allUsers, HttpStatus.FOUND);
+        final List<User> allUsers = userService.findAllUsers();
+
+        return new ResponseEntity<>(allUsers, HttpStatus.OK);
+    }
+
+    @GetMapping("/users/{userId}")
+    private ResponseEntity<User> findUserById(@PathVariable final String userId){
+        final User userById = userService.findUserById(userId);
+        System.out.println();
+
+        return new ResponseEntity<>(userById, HttpStatus.OK);
     }
 
 }

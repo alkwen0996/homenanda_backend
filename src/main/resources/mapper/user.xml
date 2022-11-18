@@ -16,4 +16,10 @@
         from users
     </select>
 
+    <select id="findUserById" parameterType="String" resultMap="userMap">
+        select user_id, user_password, user_name, phone_number, join_date, token
+        from users
+        where user_id = #{user_id}
+    </select>
+
 </mapper>

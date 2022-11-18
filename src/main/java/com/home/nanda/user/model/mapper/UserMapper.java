@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 public interface UserMapper {
     //    boolean login(String userId, String password);
     List<User> findAllUsers();
-//    User findUserById(String userId);
+    User findUserById(String userId);
 //    void joinUser(User user);
 //    void updateUser(User user);
 //    void deleteUser(String userId);
