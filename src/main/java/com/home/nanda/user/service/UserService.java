@@ -8,8 +8,8 @@ public interface UserService {
     List<User> findAllUsers();
     User findUserById(String userId);
 //    void joinUser(User user);
-//    void updateUser(User user);
-//    void deleteUser(String userId);
+    void updateUser(User user);
+    void deleteUser(String userId);
 //    void searchPassword(User user);
 //    void updatePassword(User user);
 }
