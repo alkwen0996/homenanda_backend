@@ -9,4 +9,6 @@ public interface QnAMapper {
     List<QnA> searchAllQnA();
 
     QnA searchQnAById(String qnaId);
+    void registerQnA(QnA qnA);
+    void deleteQnA(String qnaId);
 }
