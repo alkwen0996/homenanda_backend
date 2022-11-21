@@ -14,9 +14,10 @@
         <result column="house_code" property="houseCode"/>
     </resultMap>
 
-    <select id="findFavoriteAreas" resultMap="FavoriteAreaMap">
+    <select id="findFavoriteAreas" parameterType="String" resultMap="FavoriteAreaMap">
         select user_id, favorite_area_code, area_code
         from area_favorite
+        where user_id = #{userId}
     </select>
 
     <insert id="registerFavoriteArea" parameterType="FavoriteArea">
