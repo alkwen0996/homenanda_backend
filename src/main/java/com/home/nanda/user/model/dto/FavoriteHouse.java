@@ -11,8 +11,8 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class FavoriteBuilding {
+public class FavoriteHouse {
     private String userId;
-    private String buildingCode;
-    private String myBuildingCode;
+    private String houseCode;
+    private String favoriteHouseCode;
 }

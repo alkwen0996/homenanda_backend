@@ -4,22 +4,34 @@
 
     <resultMap type="FavoriteArea" id="FavoriteAreaMap">
         <result column="user_id" property="userId"/>
-        <result column="area_favorite_code" property="areaFavoriteCode"/>
+        <result column="favorite_area_code" property="favoriteAreaCode"/>
         <result column="area_code" property="areaCode"/>
     </resultMap>
 
+    <resultMap type="FavoriteHouse" id="FavoriteHouseMap">
+        <result column="user_id" property="userId"/>
+        <result column="house_favorite_no" property="favoriteHouseCode"/>
+        <result column="house_code" property="houseCode"/>
+    </resultMap>
+
     <select id="findFavoriteAreas" resultMap="FavoriteAreaMap">
-        select user_id, area_favorite_code, area_code
+        select user_id, favorite_area_code, area_code
         from area_favorite
     </select>
 
     <insert id="registerFavoriteArea" parameterType="FavoriteArea">
-        insert into area_favorite values (#{areaFavoriteCode}, #{userId}, #{areaCode})
+        insert into favorite_area_code values (#{favoriteAreaCode}, #{userId}, #{areaCode})
     </insert>
 
     <delete id="deleteFavoriteArea" parameterType="String">
         delete from area_favorite
-        where area_favorite_code = #{areaFavoriteCode}
+        where favorite_area_code = #{favoriteAreaCode}
     </delete>
+
+    <select id="findFavoriteHouses" parameterType="String" resultMap="FavoriteHouseMap">
+        select user_id, house_favorite_no, house_code
+        from house_favorite
+        where user_id = #{userId}
+    </select>
 
 </mapper>

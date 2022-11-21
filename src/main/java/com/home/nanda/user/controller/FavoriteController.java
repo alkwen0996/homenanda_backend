@@ -1,6 +1,7 @@
 package com.home.nanda.user.controller;
 
 import com.home.nanda.user.model.dto.FavoriteArea;
+import com.home.nanda.user.model.dto.FavoriteHouse;
 import com.home.nanda.user.service.FavoriteService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,13 @@ public class FavoriteController {
         favoriteService.deleteFavoriteArea(areaFavoriteCode);
 
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/users/building/{userId}")
+    private ResponseEntity<List<FavoriteHouse>> findFavoriteBuildings(@PathVariable String userId){
+        final List<FavoriteHouse> favoriteBuildings = favoriteService.findFavoriteHouses(userId);
+
+        return new ResponseEntity<>(favoriteBuildings, HttpStatus.OK);
     }
 
 }
