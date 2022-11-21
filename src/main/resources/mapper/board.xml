@@ -30,6 +30,6 @@
     <delete id="deleteQnA" parameterType="String">
         delete from qna_board
         where qna_id = #{qnaId}
-    </delete>가서
+    </delete>
 
 </mapper>
