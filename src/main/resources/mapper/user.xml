@@ -28,6 +28,7 @@
 
     <update id="updateUser" parameterType="User">
         update users
+
         <trim prefix="set" suffixOverrides=",">
             <if test="userPassword != null">user_password = #{userPassword},</if>
             <if test="userName != null">user_name = #{userName},</if>
@@ -69,6 +70,18 @@
     <update id="deleteRefreshToken" parameterType="map">
         update users
         set token = #{token, jdbcType=VARCHAR}
+        where user_id = #{userId}
+    </update>
+
+    <select id="findUserPassword" parameterType="map" resultMap="UserMap">
+        select user_id, user_name
+        from users
+        where user_id = #{userId}
+    </select>
+
+    <update id="updateUserPassword">
+        update users
+            set user_password = #{userPassword}
         where user_id = #{userId}
     </update>
 

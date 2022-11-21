@@ -19,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,13 +28,14 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+@CrossOrigin("*")
 @RestController
 public class UserController {
     public static final Logger logger = LoggerFactory.getLogger(UserController.class);
     private static final String SUCCESS = "SUCCESS";
     private static final String FAIL = "FAIL";
-    private UserService userService;
-    private JwtService jwtService;
+    private final UserService userService;
+    private final JwtService jwtService;
 
     @Autowired
     public UserController(final UserService userService, final JwtService jwtService) {
@@ -42,7 +44,7 @@ public class UserController {
     }
 
     @GetMapping("/users/admin")
-    private ResponseEntity<List<User>> findAllUsers(HttpServletRequest request) {
+    private ResponseEntity<List<User>> findAllUsers(final HttpServletRequest request) {
         final List<User> allUsers = userService.findAllUsers();
 
         return new ResponseEntity<>(allUsers, HttpStatus.OK);
@@ -85,7 +87,6 @@ public class UserController {
 
         try {
             final User loginUser = userService.loginUser(user);
-            System.out.println(loginUser.toString());
 
             final String accessToken = jwtService.createAccessToken("userId", loginUser.getUserId());// key, data
             final String refreshToken = jwtService.createRefreshToken("userId", loginUser.getUserId());// key, data
@@ -115,8 +116,10 @@ public class UserController {
             @PathVariable @ApiParam(value = "인증할 회원의 아이디.", required = true) String userId,
             HttpServletRequest request) {
         logger.debug("userId : {} ", userId);
+
         final Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status;
+
         if (jwtService.checkToken(request.getHeader("access-token"))) {
             logger.info("사용 가능한 토큰!!!");
             try {
@@ -141,7 +144,7 @@ public class UserController {
     }
 
     @ApiOperation(value = "로그아웃", notes = "회원 정보를 담은 토큰을 제거한다.", response = Map.class)
-    @GetMapping("/logout/{userId}")
+    @GetMapping("/users/logout/{userId}")
     public ResponseEntity<?> removeToken(@PathVariable("userId") String userId) {
         final Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status;
@@ -159,9 +162,8 @@ public class UserController {
         return new ResponseEntity<>(resultMap, status);
     }
 
-
     @ApiOperation(value = "Access Token 재발급", notes = "만료된 access token을 재발급받는다.", response = Map.class)
-    @PostMapping("/refresh")
+    @PostMapping("/users/refresh")
     public ResponseEntity<?> refreshToken(@RequestBody User user, HttpServletRequest request) {
         final Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = HttpStatus.ACCEPTED;
@@ -182,11 +184,18 @@ public class UserController {
                 status = HttpStatus.ACCEPTED;
             }
         } else {
-            logger.debug("리프레쉬토큰도 사용불!!!!!!!");
+            logger.debug("리프레쉬토큰 사용불가!!!!!!!");
             status = HttpStatus.UNAUTHORIZED;
         }
 
         return new ResponseEntity<>(resultMap, status);
     }
+
+    @PostMapping("/users/password")
+    private ResponseEntity<Void> findUserPassword(@RequestBody User user) {
+        userService.findUserPassword(user);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    } // 전체회원목록 검색.
 
 }

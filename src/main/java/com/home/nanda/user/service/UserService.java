@@ -4,7 +4,7 @@ import com.home.nanda.user.model.dto.User;
 import java.util.List;
 
 public interface UserService {
-    //    void findPassword(User user); // 비밀번호 찾기
+    void findUserPassword(User user); // 비밀번호 찾기
     void joinUser(User user); // 회원가입
     void updateUser(User user); // 회원정보 수정
     void deleteUser(String userId); // 회원탈퇴

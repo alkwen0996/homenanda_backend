@@ -9,7 +9,8 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface UserMapper {
-    //    void findPassword(User user); // 비밀번호 찾기
+    User findUserPassword(User user); // 비밀번호 찾기
+    void updateUserPassword(User user);
     void joinUser(User user); // 회원가입
     void updateUser(User user); // 회원정보 수정
     void deleteUser(String userId); // 회원탈퇴
