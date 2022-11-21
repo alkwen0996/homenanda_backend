@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.home.nanda.user.model.mapper.UserMapper">
 
-    <resultMap type="User" id="userMap">
+    <resultMap type="User" id="UserMap">
         <result column="user_id" property="userId"/>
         <result column="user_password" property="userPassword"/>
         <result column="user_name" property="userName"/>
@@ -11,18 +11,22 @@
         <result column="token" property="token"/>
     </resultMap>
 
-    <select id="findAllUsers" resultMap="userMap">
+    <select id="findAllUsers" resultMap="UserMap">
         select user_id, user_password, user_name, phone_number, join_date, token
         from users
     </select>
 
-    <select id="findUserById" parameterType="String" resultMap="userMap">
+    <select id="findUserById" parameterType="String" resultMap="UserMap">
         select user_id, user_password, user_name, phone_number, join_date, token
         from users
         where user_id = #{user_id}
     </select>
 
-    <update id="updateUser" parameterType="User" >
+    <insert id="joinUser" parameterType="User">
+        insert into users values (#{userId}, #{userPassword}, #{userName}, #{phoneNumber}, now(), null)
+    </insert>
+
+    <update id="updateUser" parameterType="User">
         update users
         <trim prefix="set" suffixOverrides=",">
             <if test="userPassword != null">user_password = #{userPassword},</if>
@@ -33,9 +37,39 @@
         where user_id = #{userId}
     </update>
 
-    <delete id="deleteUser" parameterType="String" >
+    <delete id="deleteUser" parameterType="String">
         delete from users
         where user_id = #{user_id}
     </delete>
+
+    <select id="loginUser" parameterType="User" resultMap="UserMap">
+        select user_id, user_password, user_name
+        from users
+        where user_id = #{userId}
+    </select>
+
+    <select id="userInfo" parameterType="String" resultMap="UserMap">
+        select user_id, user_password, user_name, phone_number, join_date
+        from users
+        where userid = #{userId}
+    </select>
+
+    <select id="getRefreshToken" parameterType="String" resultType="String">
+        select token
+        from users
+        where user_id = #{userId}
+    </select>
+
+    <update id="saveRefreshToken" parameterType="map">
+        update users
+        set token = #{token}
+        where user_id = #{userId}
+    </update>
+
+    <update id="deleteRefreshToken" parameterType="map">
+        update users
+        set token = #{token, jdbcType=VARCHAR}
+        where user_id = #{userId}
+    </update>
 
 </mapper>
