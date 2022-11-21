@@ -13,21 +13,21 @@
 
     <select id="findAllUsers" resultMap="UserMap">
         select user_id, user_password, user_name, phone_number, join_date, token
-        from users
+가        from user
     </select>
 
     <select id="findUserById" parameterType="String" resultMap="UserMap">
         select user_id, user_password, user_name, phone_number, join_date, token
-        from users
+        from user
         where user_id = #{user_id}
     </select>
 
     <insert id="joinUser" parameterType="User">
-        insert into users values (#{userId}, #{userPassword}, #{userName}, #{phoneNumber}, now(), null)
+        insert into user values (#{userId}, #{userPassword}, #{userName}, #{phoneNumber}, now(), null)
     </insert>
 
     <update id="updateUser" parameterType="User">
-        update users
+        update user
 
         <trim prefix="set" suffixOverrides=",">
             <if test="userPassword != null">user_password = #{userPassword},</if>
@@ -39,25 +39,25 @@
     </update>
 
     <delete id="deleteUser" parameterType="String">
-        delete from users
+        delete from user
         where user_id = #{user_id}
     </delete>
 
     <select id="loginUser" parameterType="User" resultMap="UserMap">
         select user_id, user_password, user_name
-        from users
+        from user
         where user_id = #{userId}
     </select>
 
     <select id="userInfo" parameterType="String" resultMap="UserMap">
         select user_id, user_password, user_name, phone_number, join_date
-        from users
+        from user
         where userid = #{userId}
     </select>
 
     <select id="getRefreshToken" parameterType="String" resultType="String">
         select token
-        from users
+        from user
         where user_id = #{userId}
     </select>
 
