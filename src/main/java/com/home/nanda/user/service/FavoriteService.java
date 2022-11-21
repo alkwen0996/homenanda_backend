@@ -13,4 +13,6 @@ public interface FavoriteService {
     void deleteFavoriteArea(String areaFavoriteCode);
 
     List<FavoriteHouse> findFavoriteHouses(String userId);
+
+    void registerFavoriteHouses(FavoriteHouse favoriteHouse);
 }

@@ -21,7 +21,7 @@
     </select>
 
     <insert id="registerFavoriteArea" parameterType="FavoriteArea">
-        insert into favorite_area_code values (#{favoriteAreaCode}, #{userId}, #{areaCode})
+        insert into area_favorite values (#{favoriteAreaCode}, #{userId}, #{areaCode})
     </insert>
 
     <delete id="deleteFavoriteArea" parameterType="String">
@@ -34,5 +34,9 @@
         from house_favorite
         where user_id = #{userId}
     </select>
+
+    <insert id="registerFavoriteHouses" parameterType="FavoriteHouse">
+        insert into house_favorite values (#{userId}, #{favoriteHouseCode}, #{houseCode})
+    </insert>
 
 </mapper>

@@ -37,4 +37,9 @@ public class FavoriteServiceImpl implements FavoriteService{
         return favoriteMapper.findFavoriteHouses(userId);
     }
 
+    @Override
+    public void registerFavoriteHouses(final FavoriteHouse favoriteHouse) {
+        favoriteMapper.registerFavoriteHouses(favoriteHouse);
+    }
+
 }

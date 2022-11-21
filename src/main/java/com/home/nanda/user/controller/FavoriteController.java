@@ -45,11 +45,18 @@ public class FavoriteController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/users/building/{userId}")
-    private ResponseEntity<List<FavoriteHouse>> findFavoriteBuildings(@PathVariable String userId){
-        final List<FavoriteHouse> favoriteBuildings = favoriteService.findFavoriteHouses(userId);
+    @GetMapping("/users/house/{userId}")
+    private ResponseEntity<List<FavoriteHouse>> findFavoriteHouses(@PathVariable String userId){
+        final List<FavoriteHouse> favoriteHouses = favoriteService.findFavoriteHouses(userId);
 
-        return new ResponseEntity<>(favoriteBuildings, HttpStatus.OK);
+        return new ResponseEntity<>(favoriteHouses, HttpStatus.OK);
+    }
+
+    @PostMapping("/users/house")
+    private ResponseEntity<List<FavoriteArea>> registerFavoriteHouses(@RequestBody FavoriteHouse favoriteHouse){
+        favoriteService.registerFavoriteHouses(favoriteHouse);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }
