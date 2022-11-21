@@ -40,7 +40,7 @@
 
     <delete id="deleteUser" parameterType="String">
         delete from user
-        where user_id = #{user_id}
+        where user_id = #{userId}
     </delete>
 
     <select id="loginUser" parameterType="User" resultMap="UserMap">
