@@ -21,4 +21,9 @@ public class QnAServiceImpl implements QnAService {
         return qnAMapper.searchAllQnA();
     }
 
+    @Override
+    public QnA searchQnAById(final String qnaId) {
+        return qnAMapper.searchQnAById(qnaId);
+    }
+
 }

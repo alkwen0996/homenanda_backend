@@ -27,5 +27,11 @@ public class QnAController {
         return new ResponseEntity<>(qnaList, HttpStatus.OK);
     }
 
+    @GetMapping("/board/qna/{qnaId}")
+    private ResponseEntity<QnA> searchQnAById(@PathVariable String qnaId) {
+        final QnA qnA = qnAService.searchQnAById(qnaId);
+
+        return new ResponseEntity<>(qnA, HttpStatus.OK);
+    }
 
 }

@@ -17,5 +17,10 @@
         from qna_board
     </select>
 
+    <select id="searchQnAById" resultMap="QnAMap">
+        select qna_id, user_id, subject, content, created_date, updated_date, hit
+        from qna_board
+        where qna_id = #{qnaId}
+    </select>
 
 </mapper>

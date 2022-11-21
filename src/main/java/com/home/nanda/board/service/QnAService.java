@@ -5,4 +5,5 @@ import java.util.List;
 
 public interface QnAService {
     List<QnA> searchAllQnA();
+    QnA searchQnAById(String qnaId);
 }
