@@ -17,4 +17,9 @@
         insert into area_favorite values (#{areaFavoriteCode}, #{userId}, #{areaCode})
     </insert>
 
+    <delete id="deleteFavoriteArea" parameterType="String">
+        delete from area_favorite
+        where area_favorite_code = #{areaFavoriteCode}
+    </delete>
+
 </mapper>

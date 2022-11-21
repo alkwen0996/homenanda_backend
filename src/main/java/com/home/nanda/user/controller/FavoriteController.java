@@ -37,4 +37,11 @@ public class FavoriteController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @DeleteMapping("/users/area/{areaFavoriteCode}")
+    private ResponseEntity<List<FavoriteArea>> deleteFavoriteArea(@PathVariable String areaFavoriteCode){
+        favoriteService.deleteFavoriteArea(areaFavoriteCode);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }

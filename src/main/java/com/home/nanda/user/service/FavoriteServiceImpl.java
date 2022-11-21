@@ -26,4 +26,9 @@ public class FavoriteServiceImpl implements FavoriteService{
         favoriteMapper.registerFavoriteArea(favoriteArea);
     }
 
+    @Override
+    public void deleteFavoriteArea(final String areaFavoriteCode) {
+        favoriteMapper.deleteFavoriteArea(areaFavoriteCode);
+    }
+
 }

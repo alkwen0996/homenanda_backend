@@ -10,4 +10,6 @@ public interface FavoriteMapper {
 
     void registerFavoriteArea(FavoriteArea favoriteArea);
 
+    void deleteFavoriteArea(String areaFavoriteCode);
+
 }
