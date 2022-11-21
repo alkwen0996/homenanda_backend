@@ -36,4 +36,9 @@ public class QnAServiceImpl implements QnAService {
         qnAMapper.deleteQnA(qnaId);
     }
 
+    @Override
+    public void updateQnA(final QnA qnA) {
+        qnAMapper.updateQnA(qnA);
+    }
+
 }

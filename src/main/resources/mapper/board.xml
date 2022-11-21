@@ -32,4 +32,10 @@
         where qna_id = #{qnaId}
     </delete>
 
+    <update id="updateQnA" parameterType="QnA">
+        update qna_board
+        set subject = #{subject}, content = #{content}, updated_date = now()
+        where qna_id = #{qnaId}
+    </update>
+
 </mapper>

@@ -7,8 +7,8 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface QnAMapper {
     List<QnA> searchAllQnA();
-
     QnA searchQnAById(String qnaId);
     void registerQnA(QnA qnA);
     void deleteQnA(String qnaId);
+    void updateQnA(QnA qnA);
 }
