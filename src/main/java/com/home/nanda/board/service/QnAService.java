@@ -9,4 +9,5 @@ public interface QnAService {
     void registerQnA(QnA qnA);
     void deleteQnA(String qnaId);
     void updateQnA(QnA qnA);
+    void updateHit(String qnaId);
 }

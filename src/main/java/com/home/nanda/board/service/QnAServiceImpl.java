@@ -41,4 +41,9 @@ public class QnAServiceImpl implements QnAService {
         qnAMapper.updateQnA(qnA);
     }
 
+    @Override
+    public void updateHit(final String qnaId) {
+        qnAMapper.updateHit(qnaId);
+    }
+
 }

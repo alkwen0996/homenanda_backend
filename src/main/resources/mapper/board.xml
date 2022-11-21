@@ -38,4 +38,10 @@
         where qna_id = #{qnaId}
     </update>
 
+    <update id="updateHit" parameterType="String">
+        update qna_board
+        set hit = hit + 1
+        where qna_id = #{qnaId}
+    </update>
+
 </mapper>
