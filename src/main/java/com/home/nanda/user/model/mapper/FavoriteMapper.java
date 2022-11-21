@@ -7,4 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface FavoriteMapper {
     List<FavoriteArea> findFavoriteAreas(String userId);
+
+    void registerFavoriteArea(FavoriteArea favoriteArea);
+
 }

@@ -7,4 +7,6 @@ public interface FavoriteService {
 
     List<FavoriteArea> findFavoriteAreas(String userId);
 
+    void registerFavoriteArea(FavoriteArea favoriteArea);
+
 }

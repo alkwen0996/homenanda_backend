@@ -20,4 +20,10 @@ public class FavoriteServiceImpl implements FavoriteService{
     public List<FavoriteArea> findFavoriteAreas(final String userId) {
         return favoriteMapper.findFavoriteAreas(userId);
     }
+
+    @Override
+    public void registerFavoriteArea(final FavoriteArea favoriteArea) {
+        favoriteMapper.registerFavoriteArea(favoriteArea);
+    }
+
 }

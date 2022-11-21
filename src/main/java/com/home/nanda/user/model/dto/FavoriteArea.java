@@ -13,6 +13,6 @@ import lombok.ToString;
 @ToString
 public class FavoriteArea {
     private String userId;
-    private String favoriteAreaCode;
+    private String areaFavoriteCode;
     private String areaCode;
 }
