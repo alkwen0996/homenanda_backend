@@ -23,4 +23,13 @@
         where qna_id = #{qnaId}
     </select>
 
+    <insert id="registerQnA" parameterType="QnA">
+        insert into qna_board values (#{userId}, #{qnaId}, #{subject}, #{content}, now())
+    </insert>
+
+    <delete id="deleteQnA" parameterType="String">
+        delete from qna_board
+        where qna_id = #{qnaId}
+    </delete>가서
+
 </mapper>
