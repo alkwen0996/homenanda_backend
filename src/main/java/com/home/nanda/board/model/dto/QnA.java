@@ -2,17 +2,9 @@ package com.home.nanda.board.model.dto;
 
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
-@Getter
-@Setter
-@ToString
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
 public class QnA {
     @ApiModelProperty(value = "글번호")
     private String qnaId;

@@ -1,18 +1,10 @@
 package com.home.nanda.board.model.dto;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
-public class Community {
+@Data
+public class Article {
     @ApiModelProperty(value = "글번호")
     private String userId;
 
