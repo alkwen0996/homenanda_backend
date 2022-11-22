@@ -1,7 +1,7 @@
 package com.home.nanda.board.service;
 
 
-import com.home.nanda.board.model.dto.Community;
+import com.home.nanda.board.model.dto.Article;
 import com.home.nanda.board.model.mapper.CommunityMapper;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +18,23 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
-    public List<Community> searchAllArticles() {
+    public List<Article> searchAllArticles() {
         return communityMapper.searchAllArticles();
+    }
+
+    @Override
+    public Article searchArticleById(final String articleId) {
+        return communityMapper.searchArticleById(articleId);
+    }
+
+    @Override
+    public void registerArticle(final Article community) {
+        communityMapper.registerArticle(community);
+    }
+
+    @Override
+    public void updateHit(final String articleId) {
+        communityMapper.updateHit(articleId);
     }
 
 }
