@@ -7,4 +7,5 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface CommentMapper {
     List<ArticleComment> searchCommentsByArticleId(String articleId);
+    void registerArticleComment(ArticleComment articleComment);
 }

@@ -10,13 +10,17 @@
         <result column="created_date" property="createdDate"/>
         <result column="updated_date" property="updatedDate"/>
         <result column="delete_date" property="deletedDate"/>
-        <result column="type" property="type"/>
     </resultMap>
 
     <select id="searchCommentsByArticleId" resultMap="CommentMap">
-        select comment_id, article_id, user_id, content, created_date, updated_date, delete_date, type
+        select comment_id, article_id, user_id, content, created_date, updated_date, delete_date
         from community_comment
         where article_id = #{articleId}
     </select>
+
+    <insert id="registerArticleComment" parameterType="ArticleComment">
+        insert into community_comment (comment_id, article_id, user_id, content, created_date)
+        values(#{commentId}, #{articleId}, #{userId}, #{content},now());
+    </insert>
 
 </mapper>
