@@ -29,4 +29,9 @@
         where comment_id = #{commentId} and article_id = #{articleId}
     </update>
 
+    <delete id="deleteArticleComment" parameterType="String">
+        delete from community_comment
+        where comment_id = #{commentId}
+    </delete>
+
 </mapper>

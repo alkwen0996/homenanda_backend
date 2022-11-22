@@ -9,4 +9,5 @@ public interface CommentMapper {
     List<ArticleComment> searchCommentsByArticleId(String articleId);
     void registerArticleComment(ArticleComment articleComment);
     void updateArticleComment(ArticleComment articleComment);
+    void deleteArticleComment(String commentId);
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,23 +24,30 @@ public class CommentController {
         this.commentService = commentService;
     }
 
-    @GetMapping("/board/comment/{articleId}")
+    @GetMapping("/board/comment/article/{articleId}")
     private ResponseEntity<List<ArticleComment>> searchCommentsByArticleId(@PathVariable String articleId){
         final List<ArticleComment> articleComments = commentService.searchCommentsByArticleId(articleId);
 
         return new ResponseEntity<>(articleComments, HttpStatus.OK);
     }
 
-    @PostMapping("/board/comment")
+    @PostMapping("/board/comment/article")
     private ResponseEntity<Void> registerArticleComment(@RequestBody ArticleComment articleComment){
         commentService.registerArticleComment(articleComment);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PutMapping("/board/comment")
+    @PutMapping("/board/comment/article")
     private ResponseEntity<Void> updateArticleComment(@RequestBody ArticleComment articleComment){
         commentService.updateArticleComment(articleComment);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/board/comment/article/{commentId}")
+    private ResponseEntity<Void> deleteArticleComment(@PathVariable String commentId){
+        commentService.deleteArticleComment(commentId);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

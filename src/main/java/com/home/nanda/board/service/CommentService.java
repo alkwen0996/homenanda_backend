@@ -8,4 +8,5 @@ public interface CommentService {
     void registerArticleComment(ArticleComment articleComment);
 
     void updateArticleComment(ArticleComment articleComment);
+    void deleteArticleComment(String commentId);
 }
