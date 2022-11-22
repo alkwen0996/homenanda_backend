@@ -15,12 +15,18 @@
     <select id="searchCommentsByArticleId" resultMap="CommentMap">
         select comment_id, article_id, user_id, content, created_date, updated_date, delete_date
         from community_comment
-        where article_id = #{articleId}
+        where article_id = #{articleId} and delete_date is null
     </select>
 
     <insert id="registerArticleComment" parameterType="ArticleComment">
         insert into community_comment (comment_id, article_id, user_id, content, created_date)
         values(#{commentId}, #{articleId}, #{userId}, #{content},now());
     </insert>
+
+    <update id="updateArticleComment" parameterType="ArticleComment">
+        update community_comment
+        set content = #{content}, updated_date = now()
+        where comment_id = #{commentId} and article_id = #{articleId}
+    </update>
 
 </mapper>

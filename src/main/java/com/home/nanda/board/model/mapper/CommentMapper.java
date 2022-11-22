@@ -8,4 +8,5 @@ import org.apache.ibatis.annotations.Mapper;
 public interface CommentMapper {
     List<ArticleComment> searchCommentsByArticleId(String articleId);
     void registerArticleComment(ArticleComment articleComment);
+    void updateArticleComment(ArticleComment articleComment);
 }

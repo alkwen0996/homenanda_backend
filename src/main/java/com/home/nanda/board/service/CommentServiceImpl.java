@@ -26,4 +26,9 @@ public class CommentServiceImpl implements CommentService{
         commentMapper.registerArticleComment(articleComment);
     }
 
+    @Override
+    public void updateArticleComment(final ArticleComment articleComment) {
+        commentMapper.updateArticleComment(articleComment);
+    }
+
 }

@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,6 +33,13 @@ public class CommentController {
     @PostMapping("/board/comment")
     private ResponseEntity<Void> registerArticleComment(@RequestBody ArticleComment articleComment){
         commentService.registerArticleComment(articleComment);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PutMapping("/board/comment")
+    private ResponseEntity<Void> updateArticleComment(@RequestBody ArticleComment articleComment){
+        commentService.updateArticleComment(articleComment);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
