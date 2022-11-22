@@ -1,11 +1,13 @@
 package com.home.nanda.board.controller;
 
 import com.home.nanda.board.model.dto.Article;
+import com.home.nanda.board.model.dto.QnA;
 import com.home.nanda.board.service.CommunityService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -49,6 +51,20 @@ public class CommunityController {
         communityService.updateHit(articleId);
 
         return new ResponseEntity<>(HttpStatus.OK);
-    } // qna 조회수 업데이트
+    } // 게시판 글 조회수 업데이트
+
+    @PutMapping("/board/community")
+    private ResponseEntity<Void> updateArticle(@RequestBody Article article) {
+        communityService.updateArticle(article);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    } // 게시판 글 제목 및 내용 수정
+
+    @DeleteMapping("/board/community/{articleId}")
+    private ResponseEntity<Void> deleteArticle(@PathVariable String articleId) {
+        communityService.deleteArticle(articleId);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    } // 게시판 글 삭제
 
 }

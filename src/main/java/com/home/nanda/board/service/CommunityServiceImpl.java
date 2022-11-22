@@ -37,4 +37,14 @@ public class CommunityServiceImpl implements CommunityService {
         communityMapper.updateHit(articleId);
     }
 
+    @Override
+    public void updateArticle(final Article article) {
+        communityMapper.updateArticle(article);
+    }
+
+    @Override
+    public void deleteArticle(final String articleId) {
+        communityMapper.deleteArticle(articleId);
+    }
+
 }

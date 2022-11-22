@@ -10,4 +10,6 @@ public interface CommunityMapper {
     Article searchArticleById(String articleId);
     void registerArticle(Article community);
     void updateHit(String articleId);
+    void updateArticle(Article article);
+    void deleteArticle(String articleId);
 }
