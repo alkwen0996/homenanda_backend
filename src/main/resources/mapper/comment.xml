@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.home.nanda.board.model.mapper.CommentMapper">
+
+    <resultMap type="ArticleComment" id="CommentMap">
+        <result column="comment_id" property="commentId"/>
+        <result column="article_id" property="articleId"/>
+        <result column="user_id" property="userId"/>
+        <result column="content" property="content"/>
+        <result column="created_date" property="createdDate"/>
+        <result column="updated_date" property="updatedDate"/>
+        <result column="delete_date" property="deletedDate"/>
+        <result column="type" property="type"/>
+    </resultMap>
+
+    <select id="searchCommentsByArticleId" resultMap="CommentMap">
+        select comment_id, article_id, user_id, content, created_date, updated_date, delete_date, type
+        from community_comment
+        where article_id = #{articleId}
+    </select>
+
+</mapper>
