@@ -53,11 +53,11 @@ public class QnAController {
     } // qna 제목 및 내용 수정
 
     @PutMapping("/board/qna/{qnaId}")
-    private ResponseEntity<Void> updateQnA(@PathVariable String qnaId) {
+    private ResponseEntity<Void> updateHit(@PathVariable String qnaId) {
         qnAService.updateHit(qnaId);
 
         return new ResponseEntity<>(HttpStatus.OK);
-    } // qna 제목 및 내용 수정
+    } // qna 조회수 업데이트
 
     @DeleteMapping("/board/qna/{qnaId}")
     private ResponseEntity<Void> deleteQnA(@PathVariable String qnaId) {
