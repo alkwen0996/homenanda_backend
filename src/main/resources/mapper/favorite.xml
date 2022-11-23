@@ -1,42 +1,85 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.home.nanda.user.model.mapper.FavoriteMapper">
+<mapper
+	namespace="com.home.nanda.user.model.mapper.FavoriteMapper">
 
-    <resultMap type="FavoriteArea" id="FavoriteAreaMap">
-        <result column="user_id" property="userId"/>
-        <result column="favorite_area_code" property="favoriteAreaCode"/>
-        <result column="area_code" property="areaCode"/>
-    </resultMap>
+	<!-- <resultMap type="FavoriteArea" id="FavoriteAreaMap"> <result column="user_id" 
+		property="userId"/> <result column="area_favorite_code" property="favoriteAreaCode"/> 
+		<result column="area_code" property="areaCode"/> </resultMap> <resultMap 
+		type="FavoriteHouse" id="FavoriteHouseMap"> <result column="user_id" property="userId"/> 
+		<result column="house_favorite_no" property="favoriteHouseCode"/> <result 
+		column="house_code" property="houseCode"/> </resultMap> -->
 
-    <resultMap type="FavoriteHouse" id="FavoriteHouseMap">
-        <result column="user_id" property="userId"/>
-        <result column="house_favorite_no" property="favoriteHouseCode"/>
-        <result column="house_code" property="houseCode"/>
-    </resultMap>
+	<!-- <select id="findFavoriteAreas" parameterType="String" resultMap="FavoriteAreaMap"> 
+		select area_code from area_favorite where user_id = #{userId} </select> -->
 
-    <select id="findFavoriteAreas" parameterType="String" resultMap="FavoriteAreaMap">
-        select user_id, favorite_area_code, area_code
-        from area_favorite
-        where user_id = #{userId}
-    </select>
+	<resultMap type="Area" id="area">
+		<result column="area_code" property="areaCode" />
+		<result column="lat" property="lat" />
+		<result column="lng" property="lng" />
+		<result column="sido_name" property="sidoName" />
+		<result column="gugun_name" property="gugunName" />
+		<result column="dong_name" property="dongName" />
+		<result column="no" property="no" />
+	</resultMap>
+	<resultMap type="House" id="house">
+		<result column="house_code" property="houseCode" />
+		<result column="house_name" property="houseName" />
+		<result column="build_year" property="buildYear" />
+		<result column="jibun" property="jibun" />
+		<result column="lat" property="lat" />
+		<result column="lng" property="lng" />
+		<result column="area_name" property="areaName" />
+		<result column="img" property="img" />
+		<result column="area_code" property="areaCode" />
+	</resultMap>
 
-    <insert id="registerFavoriteArea" parameterType="FavoriteArea">
-        insert into area_favorite values (#{favoriteAreaCode}, #{userId}, #{areaCode})
-    </insert>
+	<insert id="registerFavoriteArea" parameterType="FavoriteArea">
+		insert into
+		area_favorite
+		(user_id,area_code)
+		values ( #{userId}, #{areaCode})
+	</insert>
 
-    <delete id="deleteFavoriteArea" parameterType="String">
-        delete from area_favorite
-        where favorite_area_code = #{favoriteAreaCode}
-    </delete>
+	<delete id="deleteFavoriteArea" parameterType="String">
+		delete from
+		area_favorite
+		where area_code = #{areaCode}
+	</delete>
 
-    <select id="findFavoriteHouses" parameterType="String" resultMap="FavoriteHouseMap">
-        select user_id, house_favorite_no, house_code
-        from house_favorite
-        where user_id = #{userId}
-    </select>
 
-    <insert id="registerFavoriteHouses" parameterType="FavoriteHouse">
-        insert into house_favorite values (#{userId}, #{favoriteHouseCode}, #{houseCode})
-    </insert>
+	<select id="findFavoriteAreas" parameterType="String"
+		resultMap="area">
+		select a.area_code, lat, lng, sido_name, gugun_name,
+		dong_name,`no`
+		from area_favorite as f
+		join area as a
+		on f.area_code =
+		a.area_code
+		where user_id=#{userId}
+	</select>
+
+	<insert id="registerFavoriteHouses"
+		parameterType="FavoriteHouse">
+		insert into house_favorite
+		(user_id,house_code)
+		values
+		(#{userId},#{houseCode})
+	</insert>
+
+	<insert id="deleteFavoriteHouse" parameterType="String">
+		delete from
+		house_favorite
+		where house_code = #{houseCode}
+	</insert>
+
+	<select id="findFavoriteHouses" resultMap="house" parameterType="String">
+		select
+		i.house_code,house_name,build_year,jibun,lat,lng,area_name,img,area_code
+		from house_favorite as f
+		join house_info as i
+		on f.house_code = i.house_code
+		where user_id=#{userId}
+	</select>
 
 </mapper>
