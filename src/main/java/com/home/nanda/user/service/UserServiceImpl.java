@@ -62,7 +62,6 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void joinUser(final User user) {
         user.setUserPassword((BCrypt.hashpw(user.getUserPassword(), BCrypt.gensalt()))); // 비밀번호 암호화
-        System.out.println(user.toString());
         userMapper.joinUser(user);
     }
 
@@ -80,14 +79,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User userInfo(final String userId) {
-        return sqlSession.getMapper(UserMapper.class).userInfo(userId);
+        return userMapper.userInfo(userId);
     }
 
     @Override
-    public void saveRefreshToken(final String userid, final String refreshToken) {
+    public void saveRefreshToken(final String userId, final String refreshToken) {
         Map<String, String> map = new HashMap<>();
 
-        map.put("userid", userid);
+        map.put("userId", userId);
         map.put("token", refreshToken);
 
         sqlSession.getMapper(UserMapper.class).saveRefreshToken(map);

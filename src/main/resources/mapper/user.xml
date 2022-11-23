@@ -19,7 +19,7 @@
     <select id="findUserById" parameterType="String" resultMap="UserMap">
         select user_id, user_password, user_name, phone_number, join_date, token
         from users
-        where user_id = #{user_id}
+        where user_id = #{userId}
     </select>
 
     <insert id="joinUser" parameterType="User">
@@ -52,7 +52,7 @@
     <select id="userInfo" parameterType="String" resultMap="UserMap">
         select user_id, user_password, user_name, phone_number, join_date
         from users
-        where userid = #{userId}
+        where user_id = #{userId}
     </select>
 
     <select id="getRefreshToken" parameterType="String" resultType="String">

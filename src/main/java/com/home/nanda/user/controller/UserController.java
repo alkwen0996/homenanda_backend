@@ -32,8 +32,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserController {
     public static final Logger logger = LoggerFactory.getLogger(UserController.class);
-    private static final String SUCCESS = "SUCCESS";
-    private static final String FAIL = "FAIL";
+    private static final String SUCCESS = "success";
+    private static final String FAIL = "fail";
     private final UserService userService;
     private final JwtService jwtService;
 
@@ -59,7 +59,7 @@ public class UserController {
 
     @PostMapping("/users")
     private ResponseEntity<Void> joinUser(@RequestBody final User user) {
-        System.out.println(user.toString());
+        System.out.println("start joinUser");
         userService.joinUser(user);
 
         return new ResponseEntity<>(HttpStatus.OK);
@@ -84,12 +84,16 @@ public class UserController {
             @RequestBody @ApiParam(value = "로그인 시 필요한 회원정보(아이디, 비밀번호).", required = true) User user) {
         final Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status;
+        System.out.println(user.toString());
 
         try {
             final User loginUser = userService.loginUser(user);
 
             final String accessToken = jwtService.createAccessToken("userId", loginUser.getUserId());// key, data
             final String refreshToken = jwtService.createRefreshToken("userId", loginUser.getUserId());// key, data
+
+            System.out.println("로그인 accessToken 정보 : "+accessToken);
+            System.out.println("로그인 refreshToken 정보 : "+refreshToken);
 
             userService.saveRefreshToken(user.getUserId(), refreshToken);
 
@@ -125,6 +129,9 @@ public class UserController {
             try {
                 // 로그인 사용자 정보.
                 final User user = userService.userInfo(userId);
+                System.out.println("userId: "+userId);
+
+                System.out.println("userInfo: "+user.toString());
 
                 resultMap.put("userInfo", user);
                 resultMap.put("message", SUCCESS);
@@ -140,6 +147,7 @@ public class UserController {
             resultMap.put("message", FAIL);
             status = HttpStatus.UNAUTHORIZED;
         }
+
         return new ResponseEntity<>(resultMap, status);
     }
 
@@ -148,6 +156,8 @@ public class UserController {
     public ResponseEntity<?> removeToken(@PathVariable("userId") String userId) {
         final Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status;
+
+        System.out.println("logout in");
 
         try {
             userService.deleteRefreshToken(userId);
