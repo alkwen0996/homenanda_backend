@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.home.nanda.house.model.mapper.HouseMapper">
+	<resultMap type="House" id="house">
+		<result column="house_code" property="houseCode" />
+		<result column="house_name" property="houseName" />
+		<result column="build_year" property="buildYear" />
+		<result column="jibun" property="jibun" />
+		<result column="lat" property="lat" />
+		<result column="lng" property="lng" />
+		<result column="area_name" property="areaName" />
+		<result column="img" property="img" />
+		<result column="area_code" property="areaCode" />
+	</resultMap>
+
+	<select id="getApartFromGugun" parameterType="Area"
+		resultMap="house">
+		select * 
+		from house_info 
+		where area_code 
+		in (select area_code from area where sido_name=#{sidoName} and gugun_name =#{gugunName})
+	</select>
+	<select id="getApartFromDong" parameterType="Area"
+		resultMap="house">
+		select * 
+		from house_info 
+		where area_code 
+		in (select area_code from area where sido_name=#{sidoName} and gugun_name =#{gugunName} and dong_name =#{dongName})
+	</select>
+	
+	<select id="getApartFromCode" parameterType="Area"
+		resultMap="house">
+		select * 
+		from house_info 
+		where area_code like #{areaCode} 
+	</select>
+	
+</mapper>

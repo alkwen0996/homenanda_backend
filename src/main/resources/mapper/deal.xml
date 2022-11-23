@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.home.nanda.house.model.mapper.DealMapper">
+	<resultMap type="Deal" id="deal">
+	<result column="deal_code" property="dealCode" />
+	<result column="deal_price" property="dealPrice" />
+	<result column="deal_year" property="dealYear" />
+	<result column="deal_month" property="dealMonth" />
+	<result column="deal_day" property="dealDay" />
+	<result column="area" property="area" />
+	<result column="floor" property="floor" />
+	<result column="house_code" property="houseCode" />
+	<result column="type" property="type" />
+	<result column="rent_money" property="rentMoney" />
+	</resultMap>
+
+	<select id="getDealFromApart" parameterType="int" resultMap="deal">
+		select * from house_deal where house_code = #{house_code};
+	</select>
+</mapper>
