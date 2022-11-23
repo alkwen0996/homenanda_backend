@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.home.nanda.board.model.mapper.BoardMapper">
+
+    <resultMap type="Article" id="BoardMap">
+        <result column="article_id" property="articleId"/>
+        <result column="user_id" property="userId"/>
+        <result column="subject" property="subject"/>
+        <result column="content" property="content"/>
+        <result column="created_date" property="createdDate"/>
+        <result column="updated_date" property="updatedDate"/>
+        <result column="hit" property="hit"/>
+        <result column="type" property="type"/>
+    </resultMap>
+
+    <select id="searchAllArticles" resultMap="BoardMap">
+        select article_id, user_id, subject, content, created_date, updated_date, hit, type
+        from board
+        where type = 'article'
+    </select>
+
+    <select id="searchArticleById" parameterType="String" resultMap="BoardMap">
+        select article_id, user_id, subject, content, created_date, updated_date, hit, type
+        from board
+        where article_id = #{articleId} and type = 'article'
+    </select>
+
+    <insert id="registerArticle" parameterType="Article">
+        insert into board (user_id,article_id,subject,content,created_date, type) values (#{userId},#{articleId}, #{subject}, #{content}, now(), #{type})
+    </insert>
+
+    <update id="updateArticleHit" parameterType="String">
+        update board
+        set hit = hit + 1
+        where article_id = #{articleId} and type = 'article'
+    </update>
+
+    <update id="updateArticle" parameterType="Article">
+        update board
+        set subject = #{subject}, content = #{content}, updated_date = now()
+        where article_id = #{articleId} and type = 'article'
+    </update>
+
+    <delete id="deleteArticle" parameterType="String">
+        delete from board
+        where article_id = #{articleId} and type = 'article'
+    </delete>
+
+    <select id="searchAllQnA" resultMap="BoardMap">
+        select article_id, user_id, subject, content, created_date, updated_date, hit, type
+        from board
+        where type = 'qna'
+    </select>
+
+    <select id="searchQnAById" resultMap="BoardMap">
+        select article_id, user_id, subject, content, created_date, updated_date, hit, type
+        from board
+        where article_id = #{articleId} and type = 'qna'
+    </select>
+
+    <insert id="registerQnA" parameterType="Article">
+        insert into board (user_id,article_id,subject,content,created_date, type) values (#{userId}, #{articleId}, #{subject}, #{content}, now(), #{type})
+    </insert>
+
+    <delete id="deleteQnA" parameterType="String">
+        delete from board
+        where article_id = #{articleId} and type = 'qna'
+    </delete>
+
+    <update id="updateQnA" parameterType="Article">
+        update board
+        set subject = #{subject}, content = #{content}, updated_date = now()
+        where article_id = #{articleId} and type = 'qna'
+    </update>
+
+    <update id="updateQnAHit" parameterType="String">
+        update board
+        set hit = hit + 1
+        where article_id = #{articleId} and type = 'qna'
+    </update>
+
+</mapper>
