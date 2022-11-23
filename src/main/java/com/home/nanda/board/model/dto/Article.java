@@ -9,6 +9,7 @@ public class Article {
     private String userId;
 
     @ApiModelProperty(value = "작성자 아이디")
+
     private String articleId;
 
     @ApiModelProperty(value = "글제목")
@@ -26,6 +27,6 @@ public class Article {
     @ApiModelProperty(value = "조회수")
     private Long hit;
 
-    @ApiModelProperty(value = "공지사항 확인")
-    private String noticeYN;
+    @ApiModelProperty(value = "공지사항, 게시글 확인")
+    private String type; // 게시글인지 공지사항글인지 QnA글인지 확인.
 }
