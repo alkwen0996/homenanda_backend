@@ -3,7 +3,7 @@ package com.home.nanda.board.model.dto;
 import lombok.Data;
 
 @Data
-public class ArticleComment {
+public class Comment {
     private String articleId;
     private String commentId;
     private String content;
@@ -11,5 +11,4 @@ public class ArticleComment {
     private String createdDate;
     private String updatedDate;
     private String deletedDate;
-    private String type;
 }

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.home.nanda.board.model.mapper.CommentMapper">
 
-    <resultMap type="ArticleComment" id="CommentMap">
+    <resultMap type="Comment" id="CommentMap">
         <result column="comment_id" property="commentId"/>
         <result column="article_id" property="articleId"/>
         <result column="user_id" property="userId"/>
@@ -13,25 +13,31 @@
     </resultMap>
 
     <select id="searchCommentsByArticleId" resultMap="CommentMap">
-        select comment_id, article_id, user_id, content, created_date, updated_date, delete_date
-        from community_comment
-        where article_id = #{articleId} and delete_date is null
+        select c.comment_id, c.article_id, b.user_id, c.content, c.created_date, c.updated_date, c.delete_date, b.type
+        from comment c join board b on c.comment_id = b.article_id
+        where c.article_id = #{articleId} and c.delete_date is null and b.type = 'article'
     </select>
 
-    <insert id="registerArticleComment" parameterType="ArticleComment">
-        insert into community_comment (comment_id, article_id, user_id, content, created_date)
+    <insert id="registerArticleComment" parameterType="Comment">
+        insert into comment (comment_id, article_id, user_id, content, created_date)
         values(#{commentId}, #{articleId}, #{userId}, #{content},now());
     </insert>
 
-    <update id="updateArticleComment" parameterType="ArticleComment">
-        update community_comment
+    <update id="updateArticleComment" parameterType="Comment">
+        update comment
         set content = #{content}, updated_date = now()
         where comment_id = #{commentId} and article_id = #{articleId}
     </update>
 
     <delete id="deleteArticleComment" parameterType="String">
-        delete from community_comment
+        delete from comment
         where comment_id = #{commentId}
     </delete>
+
+    <select id="searchQnAByQnAId" resultMap="CommentMap">
+        select c.comment_id, c.article_id, b.user_id, c.content, c.created_date, c.updated_date, c.delete_date, b.type
+        from comment c join board b on c.comment_id = b.article_id
+        where c.article_id = #{articleId} and c.delete_date is null and b.type = 'qna'
+    </select>
 
 </mapper>

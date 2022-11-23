@@ -1,6 +1,6 @@
 package com.home.nanda.board.controller;
 
-import com.home.nanda.board.model.dto.ArticleComment;
+import com.home.nanda.board.model.dto.Comment;
 import com.home.nanda.board.service.CommentService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,31 +25,38 @@ public class CommentController {
     }
 
     @GetMapping("/board/comment/article/{articleId}")
-    private ResponseEntity<List<ArticleComment>> searchCommentsByArticleId(@PathVariable String articleId){
-        final List<ArticleComment> articleComments = commentService.searchCommentsByArticleId(articleId);
+    private ResponseEntity<List<Comment>> searchCommentsByArticleId(@PathVariable String articleId){
+        final List<Comment> articleComments = commentService.searchCommentsByArticleId(articleId);
 
         return new ResponseEntity<>(articleComments, HttpStatus.OK);
     }
 
     @PostMapping("/board/comment/article")
-    private ResponseEntity<Void> registerArticleComment(@RequestBody ArticleComment articleComment){
+    private ResponseEntity<Void> registerArticleComment(@RequestBody Comment articleComment){
         commentService.registerArticleComment(articleComment);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping("/board/comment/article")
-    private ResponseEntity<Void> updateArticleComment(@RequestBody ArticleComment articleComment){
+    private ResponseEntity<Void> updateArticleComment(@RequestBody Comment articleComment){
         commentService.updateArticleComment(articleComment);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @DeleteMapping("/board/comment/article/{commentId}")
-    private ResponseEntity<Void> deleteArticleComment(@PathVariable String commentId){
-        commentService.deleteArticleComment(commentId);
+    @DeleteMapping("/board/comment/article/{articleId}")
+    private ResponseEntity<Void> deleteArticleComment(@PathVariable String articleId){
+        commentService.deleteArticleComment(articleId);
 
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/board/comment/qna/{articleId}")
+    private ResponseEntity<List<Comment>> searchCommentsByQnAId(@PathVariable String articleId){
+        final List<Comment> qnaComments = commentService.searchQnAByQnAId(articleId);
+
+        return new ResponseEntity<>(qnaComments, HttpStatus.OK);
     }
 
 }
