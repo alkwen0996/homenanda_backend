@@ -5,7 +5,7 @@
     <resultMap type="Article" id="BoardMap">
         <result column="article_id" property="articleId"/>
         <result column="user_id" property="userId"/>
-        <result column="subject" property="subject"/>
+        <result column="title" property="subject"/>
         <result column="content" property="content"/>
         <result column="created_date" property="createdDate"/>
         <result column="updated_date" property="updatedDate"/>
@@ -14,19 +14,19 @@
     </resultMap>
 
     <select id="searchAllArticles" resultMap="BoardMap">
-        select article_id, user_id, subject, content, created_date, updated_date, hit, type
+        select article_id, user_id, title, content, created_date, updated_date, hit, type
         from board
         where type = 'article'
     </select>
 
     <select id="searchArticleById" parameterType="String" resultMap="BoardMap">
-        select article_id, user_id, subject, content, created_date, updated_date, hit, type
+        select article_id, user_id, title, content, created_date, updated_date, hit, type
         from board
         where article_id = #{articleId} and type = 'article'
     </select>
 
     <insert id="registerArticle" parameterType="Article">
-        insert into board (user_id,article_id,subject,content,created_date, type) values (#{userId},#{articleId}, #{subject}, #{content}, now(), #{type})
+        insert into board (user_id,title,content,created_date, type) values (#{userId}, #{subject}, #{content}, now(), #{type})
     </insert>
 
     <update id="updateArticleHit" parameterType="String">
@@ -37,7 +37,7 @@
 
     <update id="updateArticle" parameterType="Article">
         update board
-        set subject = #{subject}, content = #{content}, updated_date = now()
+        set title = #{subject}, content = #{content}, updated_date = now()
         where article_id = #{articleId} and type = 'article'
     </update>
 
@@ -47,19 +47,19 @@
     </delete>
 
     <select id="searchAllQnA" resultMap="BoardMap">
-        select article_id, user_id, subject, content, created_date, updated_date, hit, type
+        select article_id, user_id, title, content, created_date, updated_date, hit, type
         from board
         where type = 'qna'
     </select>
 
     <select id="searchQnAById" resultMap="BoardMap">
-        select article_id, user_id, subject, content, created_date, updated_date, hit, type
+        select article_id, user_id, title, content, created_date, updated_date, hit, type
         from board
         where article_id = #{articleId} and type = 'qna'
     </select>
 
     <insert id="registerQnA" parameterType="Article">
-        insert into board (user_id,article_id,subject,content,created_date, type) values (#{userId}, #{articleId}, #{subject}, #{content}, now(), #{type})
+        insert into board (user_id,article_id,title,content,created_date, type) values (#{userId}, #{articleId}, #{subject}, #{content}, now(), #{type})
     </insert>
 
     <delete id="deleteQnA" parameterType="String">
@@ -69,7 +69,7 @@
 
     <update id="updateQnA" parameterType="Article">
         update board
-        set subject = #{subject}, content = #{content}, updated_date = now()
+        set title = #{subject}, content = #{content}, updated_date = now()
         where article_id = #{articleId} and type = 'qna'
     </update>
 

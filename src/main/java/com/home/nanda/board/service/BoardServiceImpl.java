@@ -6,6 +6,7 @@ import com.home.nanda.board.model.mapper.BoardMapper;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -29,7 +30,9 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
+    @Transactional
     public void registerArticle(final Article community) {
+        System.out.println("in serviceImpl");
         boardMapper.registerArticle(community);
     }
 
@@ -44,6 +47,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
+    @Transactional
     public void deleteArticle(final String articleId) {
         boardMapper.deleteArticle(articleId);
     }
@@ -59,11 +63,13 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
+    @Transactional
     public void registerQnA(final Article qnA) {
         boardMapper.registerQnA(qnA);
     }
 
     @Override
+    @Transactional
     public void deleteQnA(final String qnaId) {
         boardMapper.deleteQnA(qnaId);
     }

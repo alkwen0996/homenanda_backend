@@ -10,5 +10,4 @@ public class Comment {
     private String userId;
     private String createdDate;
     private String updatedDate;
-    private String deletedDate;
 }

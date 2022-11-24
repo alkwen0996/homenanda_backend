@@ -148,9 +148,7 @@ public class UserServiceImpl implements UserService {
 
     private void updatePassword(final String tempPassword, final User user) {
         final User userById = userMapper.findUserById(user.getUserId());
-        userById.setUserPassword(tempPassword);
-
-        System.out.println(userById.toString());
+        userById.setUserPassword((BCrypt.hashpw(tempPassword, BCrypt.gensalt()))); // 비밀번호 암호화
 
         userMapper.updateUserPassword(userById);
     }
