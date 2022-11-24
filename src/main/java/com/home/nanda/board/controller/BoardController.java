@@ -2,10 +2,14 @@ package com.home.nanda.board.controller;
 
 import com.home.nanda.board.model.dto.Article;
 import com.home.nanda.board.service.BoardService;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,8 +18,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+@CrossOrigin("*")
 @RestController
 public class BoardController {
+
+    private static final String SUCCESS = "success";
+    private static final String FAIL = "fail";
 
     private BoardService boardService;
 
@@ -39,10 +47,25 @@ public class BoardController {
     } // 게시판 글 상세 보기
 
     @PostMapping("/board/community")
-    private ResponseEntity<Void> registerArticle(@RequestBody Article article) {
-        boardService.registerArticle(article);
+    private ResponseEntity<?> registerArticle(@RequestBody Article article) {
+        System.out.println("community in");
+        System.out.println(article.toString());
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        final Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status;
+
+        try{
+            boardService.registerArticle(article);
+            status = HttpStatus.ACCEPTED;
+            resultMap.put("message", SUCCESS);
+        }catch (Exception e){
+            System.out.println("error");
+            System.out.println(e.getMessage());
+            resultMap.put("message", FAIL);
+            status = HttpStatus.NO_CONTENT;
+        }
+
+        return new ResponseEntity<>(resultMap, status);
     } // 게시판 글 등록
 
     @PutMapping("/board/community/{articleId}")
@@ -82,10 +105,25 @@ public class BoardController {
     } // qna 상세보기
 
     @PostMapping("/board/qna")
-    private ResponseEntity<Void> registerQnA(@RequestBody Article article) {
-        boardService.registerQnA(article);
+    private ResponseEntity<?> registerQnA(@RequestBody Article article) {
+        System.out.println("qna in");
+        System.out.println(article.toString());
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        final Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status;
+
+        try{
+            boardService.registerQnA(article);
+            status = HttpStatus.ACCEPTED;
+            resultMap.put("message", SUCCESS);
+        }catch (Exception e){
+            System.out.println("error");
+            System.out.println(e.getMessage());
+            resultMap.put("message", FAIL);
+            status = HttpStatus.NO_CONTENT;
+        }
+
+        return new ResponseEntity<>(resultMap, status);
     } // qna 등록
 
     @PutMapping("/board/qna")

@@ -4,11 +4,11 @@ import lombok.Data;
 
 @Data
 public class Area {
-	String areaCode;
-	String lat;
-	String lng;
-	String sidoName;
-	String gugunName;
-	String dongName;
-	int no;
+	private String areaCode;
+	private String lat;
+	private String lng;
+	private String sidoName;
+	private String gugunName;
+	private String dongName;
+	private Long no;
 }

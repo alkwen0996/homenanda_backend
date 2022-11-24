@@ -4,14 +4,14 @@ import lombok.Data;
 
 @Data
 public class Deal {
-	int dealCode;
+	Long dealCode;
 	String dealPrice;
-	int dealYear;
-	int dealMonth;
-	int dealDay;
+	Long dealYear;
+	Long dealMonth;
+	Long dealDay;
 	String area;
 	String floor;
-	int houseCode;
+	Long houseCode;
 	String type;
 	String rentMoney;
 }

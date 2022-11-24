@@ -66,17 +66,41 @@ public class UserController {
     } // 회원가입
 
     @PutMapping("/users")
-    private ResponseEntity<Void> updateUser(@RequestBody final User user) {
-        userService.updateUser(user);
+    private ResponseEntity<?> updateUser(@RequestBody final User user) {
+        final Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status;
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        try {
+            status = HttpStatus.ACCEPTED;
+            userService.updateUser(user);
+            resultMap.put("message", SUCCESS);
+        }catch (Exception e) {
+            logger.error("회원정보 수정 실패 : {}", e);
+            resultMap.put("message", FAIL);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<>(resultMap, status);
     } // 회원정보 수정
 
     @DeleteMapping("/users/{userId}")
-    private ResponseEntity<Void> deleteUser(@PathVariable final String userId) {
-        userService.deleteUser(userId);
+    private ResponseEntity<?> deleteUser(@PathVariable final String userId) {
+        final Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status;
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        System.out.println("userId: "+userId);
+
+        try {
+            status = HttpStatus.ACCEPTED;
+            userService.deleteUser(userId);
+            resultMap.put("message", SUCCESS);
+        }catch (Exception e) {
+            logger.error("회원탈퇴 실패 : {}", e);
+            resultMap.put("message", FAIL);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<>(resultMap, status);
     } // 회원삭제
 
     @PostMapping("/users/login")
@@ -84,7 +108,7 @@ public class UserController {
             @RequestBody @ApiParam(value = "로그인 시 필요한 회원정보(아이디, 비밀번호).", required = true) User user) {
         final Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status;
-        System.out.println(user.toString());
+        System.out.println("user: "+user.toString());
 
         try {
             final User loginUser = userService.loginUser(user);
@@ -123,6 +147,9 @@ public class UserController {
 
         final Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status;
+
+        System.out.println("userId: "+userId);
+        System.out.println("token: "+request.getHeader("access-token"));
 
         if (jwtService.checkToken(request.getHeader("access-token"))) {
             logger.info("사용 가능한 토큰!!!");
@@ -202,10 +229,21 @@ public class UserController {
     }
 
     @PostMapping("/users/password")
-    private ResponseEntity<Void> findUserPassword(@RequestBody User user) {
-        userService.findUserPassword(user);
+    private ResponseEntity<?> findUserPassword(@RequestBody User user) {
+        final Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status;
 
-        return new ResponseEntity<>(HttpStatus.OK);
-    } // 전체회원목록 검색.
+        try {
+            status = HttpStatus.ACCEPTED;
+            userService.findUserPassword(user);
+            resultMap.put("message", SUCCESS);
+        }catch (Exception e) {
+            logger.error("비밀번호 재설정 메일발송 실패 : {}", e);
+            resultMap.put("message", FAIL);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<>(resultMap, status);
+    } // 비밀번호 찾기.
 
 }

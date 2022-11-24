@@ -9,7 +9,6 @@ public class Article {
     private String userId;
 
     @ApiModelProperty(value = "작성자 아이디")
-
     private String articleId;
 
     @ApiModelProperty(value = "글제목")
