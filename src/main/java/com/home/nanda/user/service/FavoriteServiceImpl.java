@@ -1,13 +1,16 @@
 package com.home.nanda.user.service;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.home.nanda.house.model.dto.Area;
 import com.home.nanda.house.model.dto.House;
 import com.home.nanda.user.model.dto.FavoriteArea;
 import com.home.nanda.user.model.dto.FavoriteHouse;
 import com.home.nanda.user.model.mapper.FavoriteMapper;
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 @Service
 public class FavoriteServiceImpl implements FavoriteService{
@@ -26,6 +29,7 @@ public class FavoriteServiceImpl implements FavoriteService{
 	}
 
 	@Override
+	@Transactional
 	public void deleteFavoriteArea(String areaCode) {
 		// TODO Auto-generated method stub
 		favoriteMapper.deleteFavoriteArea(areaCode);
@@ -38,6 +42,7 @@ public class FavoriteServiceImpl implements FavoriteService{
 	}
 
 	@Override
+	@Transactional
 	public void deleteFavoriteHouse(String houseCode) {
 		// TODO Auto-generated method stub
 		favoriteMapper.deleteFavoriteHouse(houseCode);
