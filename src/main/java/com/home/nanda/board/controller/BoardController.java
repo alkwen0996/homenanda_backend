@@ -41,6 +41,7 @@ public class BoardController {
 
     @GetMapping("/board/community/{articleId}")
     private ResponseEntity<Article> searchArticlesById(@PathVariable String articleId) {
+        System.out.println("articleId: "+articleId);
         final Article article = boardService.searchArticleById(articleId);
 
         return new ResponseEntity<>(article, HttpStatus.OK);
@@ -76,17 +77,41 @@ public class BoardController {
     } // 게시판 글 조회수 업데이트
 
     @PutMapping("/board/community")
-    private ResponseEntity<Void> updateArticle(@RequestBody Article article) {
-        boardService.updateArticle(article);
+    private ResponseEntity<?> updateArticle(@RequestBody Article article) {
+        final Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status;
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        try{
+            boardService.updateArticle(article);
+            status = HttpStatus.ACCEPTED;
+            resultMap.put("message", SUCCESS);
+        }catch (Exception e){
+            System.out.println("error");
+            System.out.println(e.getMessage());
+            resultMap.put("message", FAIL);
+            status = HttpStatus.NO_CONTENT;
+        }
+
+        return new ResponseEntity<>(resultMap, status);
     } // 게시판 글 제목 및 내용 수정
 
     @DeleteMapping("/board/community/{articleId}")
-    private ResponseEntity<Void> deleteArticle(@PathVariable String articleId) {
-        boardService.deleteArticle(articleId);
+    private ResponseEntity<?> deleteArticle(@PathVariable String articleId) {
+        final Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status;
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        try{
+            boardService.deleteArticle(articleId);
+            status = HttpStatus.ACCEPTED;
+            resultMap.put("message", SUCCESS);
+        }catch (Exception e){
+            System.out.println("error");
+            System.out.println(e.getMessage());
+            resultMap.put("message", FAIL);
+            status = HttpStatus.NO_CONTENT;
+        }
+
+        return new ResponseEntity<>(resultMap, status);
     } // 게시판 글 삭제
 
 
@@ -127,10 +152,22 @@ public class BoardController {
     } // qna 등록
 
     @PutMapping("/board/qna")
-    private ResponseEntity<Void> updateQnA(@RequestBody Article article) {
-        boardService.updateQnA(article);
+    private ResponseEntity<?> updateQnA(@RequestBody Article article) {
+        final Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status;
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        try{
+            boardService.updateQnA(article);
+            status = HttpStatus.ACCEPTED;
+            resultMap.put("message", SUCCESS);
+        }catch (Exception e){
+            System.out.println("error");
+            System.out.println(e.getMessage());
+            resultMap.put("message", FAIL);
+            status = HttpStatus.NO_CONTENT;
+        }
+
+        return new ResponseEntity<>(resultMap, status);
     } // qna 제목 및 내용 수정
 
     @PutMapping("/board/qna/{article}")
@@ -141,10 +178,23 @@ public class BoardController {
     } // qna 조회수 업데이트
 
     @DeleteMapping("/board/qna/{article}")
-    private ResponseEntity<Void> deleteQnA(@PathVariable String article) {
-        boardService.deleteQnA(article);
+    private ResponseEntity<?> deleteQnA(@PathVariable String article) {
 
-        return new ResponseEntity<>(HttpStatus.OK);
-    } // qna 삭제
+        final Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status;
+
+        try {
+            boardService.deleteQnA(article);
+            status = HttpStatus.ACCEPTED;
+            resultMap.put("message", SUCCESS);
+        } catch (Exception e) {
+            System.out.println("error");
+            System.out.println(e.getMessage());
+            resultMap.put("message", FAIL);
+            status = HttpStatus.NO_CONTENT;
+        } // qna 삭제
+
+        return new ResponseEntity<>(resultMap, status);
+    }
 
 }
