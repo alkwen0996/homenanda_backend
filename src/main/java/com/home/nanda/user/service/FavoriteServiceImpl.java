@@ -23,6 +23,7 @@ public class FavoriteServiceImpl implements FavoriteService{
     }
 
 	@Override
+	@Transactional
 	public void registerFavoriteArea(FavoriteArea favoriteArea) {
 		// TODO Auto-generated method stub
 		favoriteMapper.registerFavoriteArea(favoriteArea);
@@ -36,6 +37,7 @@ public class FavoriteServiceImpl implements FavoriteService{
 	}
 
 	@Override
+	@Transactional
 	public void registerFavoriteHouses(FavoriteHouse favoriteHouse) {
 		// TODO Auto-generated method stub
 		favoriteMapper.registerFavoriteHouses(favoriteHouse);
