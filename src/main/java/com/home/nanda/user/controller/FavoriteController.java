@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.home.nanda.house.model.dto.Area;
 import com.home.nanda.house.model.dto.House;
-import com.home.nanda.user.model.dto.FavoriteArea;
-import com.home.nanda.user.model.dto.FavoriteHouse;
+import com.home.nanda.user.model.dto.UserArea;
+import com.home.nanda.user.model.dto.UserHouse;
 import com.home.nanda.user.service.FavoriteService;
 
 @CrossOrigin("*")
@@ -39,14 +39,14 @@ public class FavoriteController {
 	}
 
 	@PostMapping("/users/area")
-	private ResponseEntity<List<FavoriteArea>> registerFavoriteAreas(@RequestBody FavoriteArea favoriteArea) {
-		favoriteService.registerFavoriteArea(favoriteArea);
+	private ResponseEntity<List<UserArea>> registerFavoriteAreas(@RequestBody UserArea userArea) {
+		favoriteService.registerFavoriteArea(userArea);
 
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@DeleteMapping("/users/area/{areaCode}")
-	private ResponseEntity<List<FavoriteArea>> deleteFavoriteArea(@PathVariable String areaCode) {
+	private ResponseEntity<List<UserArea>> deleteFavoriteArea(@PathVariable String areaCode) {
 		favoriteService.deleteFavoriteArea(areaCode);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
@@ -59,14 +59,14 @@ public class FavoriteController {
 	}
 
 	@PostMapping("/users/house")
-	private ResponseEntity<List<FavoriteArea>> registerFavoriteHouses(@RequestBody FavoriteHouse favoriteHouse) {
-		favoriteService.registerFavoriteHouses(favoriteHouse);
+	private ResponseEntity<List<UserArea>> registerFavoriteHouses(@RequestBody UserHouse userHouse) {
+		favoriteService.registerFavoriteHouses(userHouse);
 
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@DeleteMapping("/users/house/{houseCode}")
-	private ResponseEntity<List<FavoriteArea>> deleteFavoriteHouse(@PathVariable String houseCode) {
+	private ResponseEntity<List<UserArea>> deleteFavoriteHouse(@PathVariable String houseCode) {
 		favoriteService.deleteFavoriteHouse(houseCode);
 
 		return new ResponseEntity<>(HttpStatus.OK);

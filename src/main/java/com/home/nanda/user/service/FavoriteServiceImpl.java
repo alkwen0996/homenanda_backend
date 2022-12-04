@@ -8,8 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.home.nanda.house.model.dto.Area;
 import com.home.nanda.house.model.dto.House;
-import com.home.nanda.user.model.dto.FavoriteArea;
-import com.home.nanda.user.model.dto.FavoriteHouse;
+import com.home.nanda.user.model.dto.UserArea;
+import com.home.nanda.user.model.dto.UserHouse;
 import com.home.nanda.user.model.mapper.FavoriteMapper;
 
 @Service
@@ -24,9 +24,9 @@ public class FavoriteServiceImpl implements FavoriteService{
 
 	@Override
 	@Transactional
-	public void registerFavoriteArea(FavoriteArea favoriteArea) {
+	public void registerFavoriteArea(UserArea userArea) {
 		// TODO Auto-generated method stub
-		favoriteMapper.registerFavoriteArea(favoriteArea);
+		favoriteMapper.registerFavoriteArea(userArea);
 	}
 
 	@Override
@@ -38,9 +38,9 @@ public class FavoriteServiceImpl implements FavoriteService{
 
 	@Override
 	@Transactional
-	public void registerFavoriteHouses(FavoriteHouse favoriteHouse) {
+	public void registerFavoriteHouses(UserHouse userHouse) {
 		// TODO Auto-generated method stub
-		favoriteMapper.registerFavoriteHouses(favoriteHouse);
+		favoriteMapper.registerFavoriteHouses(userHouse);
 	}
 
 	@Override
