@@ -37,7 +37,7 @@
 | :--------: | :------: | :------: |
 |    JAVA    |   1.8    | Backend  |
 |    MySQL   |  8.0.21  |    DB    |
-|    JPA     |  2.7.5   | Backend  |
+|   MyBatis  |  2.1.3   | Backend  |
 |   Vue.js   |  2.6.12  | Frontend |
 | Springboot |  2.7.5   | Backend  |
 
